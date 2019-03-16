@@ -1,0 +1,36 @@
+#pragma once
+
+#include <string>
+
+enum TokenType
+{
+	VARIABLE = 1,
+	DIGIT,
+	ASSIGN_OP,
+	OP_COLON,
+	OP_PLUS,
+	OP_MINUS,
+	OP_MULTIPLY,
+	OP_DIVISION,
+	OP_EQUALS,
+	OP_NOT,
+	OP_LESS,
+	OP_BIGGEST,
+	DEF,
+	BRACKETS_CLOSE,
+	BRACKETS_OPEN,
+	BRACKETS_F_OPEN,
+	BRACKETS_F_CLOSE,
+	WHILE,
+	IF,
+	BRACKET_OPEN,
+	BRACKET_CLOSE,
+	NO_MATCH,
+	ALSO_NEED
+};
+
+struct Token
+{
+	TokenType type;
+	std::string value;
+};
