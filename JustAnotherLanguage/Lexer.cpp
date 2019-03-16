@@ -19,7 +19,10 @@ void Lexer::Run()
 
 		if (symbol == ' ' || symbol == '\t' || symbol == '\n')
 		{
-			if ( tokenLast.type == TokenType::DEF )
+			if ( tokenLast.type == TokenType::DEF ||
+				 tokenLast.type == TokenType::FOR ||
+				 tokenLast.type == TokenType::IN  ||
+				 tokenLast.type == TokenType::VARIABLE )
 			{
 				pushToken(symbol, false );
 			}
@@ -72,7 +75,10 @@ TokenType Lexer::getTokenType( const std::string &str ) const
 
 	if ( str.size() == 1 )
 	{
-		if (str[0] == REGEX_OP_COLON)    return TokenType::OP_COLON;
+		if (str[0] == REGEX_OP_COMMA)      return TokenType::OP_COMMA;
+		if (str[0] == REGEX_OP_COLON)      return TokenType::OP_COLON;
+		if (str[0] == REGEX_OP_SEMICONON)  return TokenType::OP_SEMICONON;
+
 		if (str[0] == REGEX_OP_PLUS)     return TokenType::OP_PLUS;
 		if (str[0] == REGEX_OP_MINUS)    return TokenType::OP_MINUS;
 		if (str[0] == REGEX_OP_MULTIPLY) return TokenType::OP_MULTIPLY;
@@ -122,6 +128,21 @@ TokenType Lexer::getTokenType( const std::string &str ) const
 		{
 			count++;
 			type = TokenType::DEF;
+		}
+		else if (std::regex_match(str, REGEX_RETURN))
+		{
+			count++;
+			type = TokenType::RETURN;
+		} 
+		else if (std::regex_match(str, REGEX_FOR))
+		{
+			count++;
+			type = TokenType::FOR;
+		}
+		else if (std::regex_match(str, REGEX_IN))
+		{
+			count++;
+			type = TokenType::IN;
 		}
 		else
 		{

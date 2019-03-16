@@ -6,7 +6,7 @@ int main(int argc, char **argv)
 {
 	Lexer lexer;
 
-	lexer.Initialize("def main () { while ( a < b ) { a := 10 } }");
+	lexer.Initialize("def main ( argc, argv ) { for i in range(5) { } while ( a < b ) { a := 10; } return 0; }");
 	lexer.Run();
 
 	std::vector<Token> tokens = lexer.GetTokens();
