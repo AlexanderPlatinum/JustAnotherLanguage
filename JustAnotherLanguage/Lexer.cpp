@@ -144,6 +144,11 @@ TokenType Lexer::getTokenType( const std::string &str ) const
 			count++;
 			type = TokenType::IN;
 		}
+		else if (std::regex_match(str, REGEX_ELSE))
+		{
+			count++;
+			type = TokenType::ELSE;
+		}
 		else
 		{
 			if (std::regex_match(str, REGEX_VARIABLE))

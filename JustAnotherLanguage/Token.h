@@ -26,6 +26,7 @@ enum TokenType
 	BRACKETS_F_CLOSE,
 	WHILE,
 	IF,
+	ELSE,
 	FOR,
 	IN,
 	BRACKET_OPEN,
