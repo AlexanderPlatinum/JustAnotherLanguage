@@ -29,8 +29,6 @@ enum class TokenType
 	ELSE,
 	FOR,
 	IN,
-	BRACKET_OPEN,
-	BRACKET_CLOSE,
 	NO_MATCH,
 	ALSO_NEED
 };

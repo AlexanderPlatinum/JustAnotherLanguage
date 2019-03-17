@@ -3,6 +3,7 @@
 enum class OperationType
 {
 	NUMBER,
+	VARIABLE,
 	PLUS,
 	MINUS,
 	MUL,
@@ -12,6 +13,8 @@ enum class OperationType
 	EQUALS,
 	OPEN,
 	CLOSE,
+	GOTO,
+	NOT,
 	NOT_FOUND
 };
 

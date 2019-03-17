@@ -9,7 +9,7 @@ int main(int argc, char **argv)
 	// Lexer
 	Lexer lexer;
 
-	lexer.Initialize("10 + 20 * ( 18 * 10 + 12 )");
+	lexer.Initialize("if ( 10 < 20 ) { a := 10 + 20 * ( 18 * 10 + 12 ); }");
 	lexer.Run();
 
 	std::vector<Token> tokens = lexer.GetTokens();

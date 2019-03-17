@@ -83,8 +83,8 @@ TokenType Lexer::getTokenType( const std::string &str ) const
 		if (str[0] == REGEX_OP_LESS)          return TokenType::OP_LESS;
 		if (str[0] == REGEX_OP_BIGGEST)       return TokenType::OP_BIGGEST;
 
-		if (str[0] == REGEX_BRACKETS_OPEN)    return TokenType::BRACKETS_CLOSE;
-		if (str[0] == REGEX_BRACKETS_CLOSE)   return TokenType::BRACKETS_OPEN;
+		if (str[0] == REGEX_BRACKETS_OPEN)    return TokenType::BRACKETS_OPEN;
+		if (str[0] == REGEX_BRACKETS_CLOSE)   return TokenType::BRACKETS_CLOSE;
 
 		if (str[0] == REGEX_BRACKETS_F_OPEN)  return TokenType::BRACKETS_F_CLOSE;
 		if (str[0] == REGEX_BRACKETS_F_CLOSE) return TokenType::BRACKETS_F_OPEN;
