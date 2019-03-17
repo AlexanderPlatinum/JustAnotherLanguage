@@ -8,6 +8,8 @@
 #include "Token.h"
 #include "Operation.h"
 
+const int NEED_CALCULATE = -1;
+
 class Parser
 {
 private:
@@ -17,6 +19,9 @@ private:
 	std::vector<Token> tokens;
 	std::vector<Operation> infix;
 	std::vector<Operation> opStack;
+
+	std::vector<int> gotoLines;
+	bool needCloseGoto;
 
 public:
 	Parser();
@@ -30,6 +35,7 @@ public:
 private:
 	void copyFromOpStackToInfix();
 	void prepairMathOperands(const OperationType &currentOpType);
+	void putGoto();
 
 	int getVariableIdByName(const std::string &name);
 
@@ -38,4 +44,3 @@ private:
 	
 	char printType( const Operation &op ) const;
 };
-

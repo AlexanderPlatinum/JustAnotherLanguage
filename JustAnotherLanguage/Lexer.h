@@ -32,4 +32,3 @@ private:
 	void pushToken( char symbol, bool addSumbol = true );
 	TokenType getTokenType(const std::string &str) const;
 };
-

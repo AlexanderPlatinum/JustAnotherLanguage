@@ -1,6 +1,7 @@
 #include "Parser.h"
 
-Parser::Parser() : countOfVariables( 0 )
+Parser::Parser() :
+	countOfVariables(0), needCloseGoto(false)
 {}
 
 void Parser::Initialize(const std::vector<Token> &tokens)
@@ -19,7 +20,6 @@ void Parser::Run()
 		else if( it->type == TokenType::VARIABLE )
 		{
 			int id = getVariableIdByName( it->value );
-
 			infix.push_back(Operation(OperationType::VARIABLE, id));
 		}
 		else if (it->type == TokenType::BRACKETS_CLOSE)
@@ -34,22 +34,37 @@ void Parser::Run()
 				op = opStack.back();
 				opStack.pop_back();
 			}
+
+			if (needCloseGoto == true)
+			{
+				infix.push_back(Operation(OperationType::NUMBER, NEED_CALCULATE));
+				infix.push_back(Operation(OperationType::GOTO, 0));
+				needCloseGoto = false;
+			}
 		}
 		else if (it->type == TokenType::BRACKETS_OPEN)
 		{
 			opStack.push_back(Operation(OperationType::OPEN, 0));
+		}
+		else if ( it->type == TokenType::IF )
+		{
+			needCloseGoto = true;
+		}
+		else if (it->type == TokenType::BRACKETS_F_CLOSE)
+		{
+			copyFromOpStackToInfix();
+			gotoLines.push_back( infix.size() - 1 );
 		}
 		else
 		{
 			OperationType currentOpType = getOperationType(*it);
 
 			if (currentOpType == OperationType::NOT_FOUND) continue;
-
 			prepairMathOperands(currentOpType);
 		}
 	}
-
-	copyFromOpStackToInfix();
+	
+	putGoto();
 }
 
 std::vector<Operation> Parser::GetOperations() const
@@ -68,6 +83,10 @@ void Parser::PrintInfix() const
 		else if (it->type == OperationType::VARIABLE)
 		{
 			std::cout << "( var with id " << it->value << " ) ";
+		}
+		else if ( it->type == OperationType::GOTO )
+		{
+			std::cout << "F! ";
 		}
 		else
 		{
@@ -111,6 +130,20 @@ void Parser::prepairMathOperands(const OperationType &currentOpType)
 	opStack.push_back(current);
 }
 
+void Parser::putGoto()
+{
+	int line = 0;
+	for ( auto it = infix.begin(); it != infix.end(); ++it )
+	{
+		if ( it->type  == OperationType::NUMBER &&
+			 it->value == NEED_CALCULATE )
+		{
+			it->value = gotoLines[line];
+			line++;
+		}
+	}
+}
+
 int Parser::getVariableIdByName(const std::string &name)
 {
 	int id = 0;
@@ -144,6 +177,11 @@ char Parser::printType(const Operation &op) const
 
 int Parser::getPriority(const Operation &op) const
 {
+	if ( op.type == OperationType::GOTO )
+	{
+		return 10;
+	}
+
 	if ( op.type == OperationType::DIV ||
 		 op.type == OperationType::MUL )
 	{
@@ -169,8 +207,7 @@ int Parser::getPriority(const Operation &op) const
 	}
 
 	if ( op.type == OperationType::CLOSE ||
-		 op.type == OperationType::OPEN  ||
-		 op.type == OperationType::GOTO   )
+		 op.type == OperationType::OPEN  )
 	{
 		return 1;
 	}

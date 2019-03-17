@@ -117,9 +117,12 @@
   <ItemGroup>
     <ClCompile Include="Lexer.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Parser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Lexer.h" />
+    <ClInclude Include="Operation.h" />
+    <ClInclude Include="Parser.h" />
     <ClInclude Include="Regexps.h" />
     <ClInclude Include="Token.h" />
   </ItemGroup>
