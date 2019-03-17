@@ -1,11 +1,5 @@
 #include "Parser.h"
 
-Parser::Parser()
-{}
-
-Parser::~Parser()
-{}
-
 void Parser::Initialize(const std::vector<Token> &tokens)
 {
 	this->tokens = tokens;

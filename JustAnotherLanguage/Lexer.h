@@ -19,8 +19,7 @@ private:
 	Token tokenLast;
 
 public:
-	Lexer();
-	~Lexer();
+	Lexer() = default;
 
 	void Initialize( const std::string &code );
 	void Run();

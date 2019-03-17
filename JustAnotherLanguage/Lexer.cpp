@@ -1,11 +1,5 @@
 #include "Lexer.h"
 
-Lexer::Lexer()
-{}
-
-Lexer::~Lexer()
-{}
-
 void Lexer::Initialize( const std::string &code )
 {
 	this->code = code;
@@ -72,26 +66,25 @@ void Lexer::pushToken(char symbol, bool addSymbol)
 
 TokenType Lexer::getTokenType( const std::string &str ) const
 {
-
 	if ( str.size() == 1 )
 	{
-		if (str[0] == REGEX_OP_COMMA)      return TokenType::OP_COMMA;
-		if (str[0] == REGEX_OP_COLON)      return TokenType::OP_COLON;
-		if (str[0] == REGEX_OP_SEMICONON)  return TokenType::OP_SEMICONON;
+		if (str[0] == REGEX_OP_COMMA)         return TokenType::OP_COMMA;
+		if (str[0] == REGEX_OP_COLON)         return TokenType::OP_COLON;
+		if (str[0] == REGEX_OP_SEMICONON)     return TokenType::OP_SEMICONON;
 
-		if (str[0] == REGEX_OP_PLUS)     return TokenType::OP_PLUS;
-		if (str[0] == REGEX_OP_MINUS)    return TokenType::OP_MINUS;
-		if (str[0] == REGEX_OP_MULTIPLY) return TokenType::OP_MULTIPLY;
-		if (str[0] == REGEX_OP_DIVISION) return TokenType::OP_DIVISION;
+		if (str[0] == REGEX_OP_PLUS)          return TokenType::OP_PLUS;
+		if (str[0] == REGEX_OP_MINUS)         return TokenType::OP_MINUS;
+		if (str[0] == REGEX_OP_MULTIPLY)      return TokenType::OP_MULTIPLY;
+		if (str[0] == REGEX_OP_DIVISION)      return TokenType::OP_DIVISION;
 
-		if (str[0] == REGEX_OP_EQUALS) return TokenType::OP_EQUALS;
-		if (str[0] == REGEX_OP_NOT)    return TokenType::OP_NOT;
+		if (str[0] == REGEX_OP_EQUALS)        return TokenType::OP_EQUALS;
+		if (str[0] == REGEX_OP_NOT)           return TokenType::OP_NOT;
 
-		if (str[0] == REGEX_OP_LESS)    return TokenType::OP_LESS;
-		if (str[0] == REGEX_OP_BIGGEST) return TokenType::OP_BIGGEST;
+		if (str[0] == REGEX_OP_LESS)          return TokenType::OP_LESS;
+		if (str[0] == REGEX_OP_BIGGEST)       return TokenType::OP_BIGGEST;
 
-		if (str[0] == REGEX_BRACKETS_OPEN)  return TokenType::BRACKETS_CLOSE;
-		if (str[0] == REGEX_BRACKETS_CLOSE) return TokenType::BRACKETS_OPEN;
+		if (str[0] == REGEX_BRACKETS_OPEN)    return TokenType::BRACKETS_CLOSE;
+		if (str[0] == REGEX_BRACKETS_CLOSE)   return TokenType::BRACKETS_OPEN;
 
 		if (str[0] == REGEX_BRACKETS_F_OPEN)  return TokenType::BRACKETS_F_CLOSE;
 		if (str[0] == REGEX_BRACKETS_F_CLOSE) return TokenType::BRACKETS_F_OPEN;
