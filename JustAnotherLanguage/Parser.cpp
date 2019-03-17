@@ -116,6 +116,26 @@ void Parser::PrintInfix() const
 	std::cout << std::endl;
 }
 
+void Parser::AssemblyListing(const std::string &fileName) const
+{
+	std::ofstream fout( fileName );
+
+	for (auto it = infix.begin(); it != infix.end(); ++it)
+	{
+		if (it->type == OperationType::NUMBER   ||
+			it->type == OperationType::VARIABLE )
+		{
+			fout << getNameOfOperand(*it) << it->value << std::endl;
+		}
+		else
+		{
+			fout << getNameOfOperand(*it) << std::endl;
+		}
+	}
+
+	fout.close();
+}
+
 void Parser::copyFromOpStackToInfix()
 {
 	while (opStack.size() != 0)
@@ -248,15 +268,15 @@ int Parser::getPriority(const Operation &op) const
 		return 9;
 	}
 
-	if ( op.type == OperationType::PLUS ||
+	if ( op.type == OperationType::PLUS  ||
 		 op.type == OperationType::MINUS )
 	{
 		return 8;
 	}
 
-	if ( op.type == OperationType::EQUALS ||
-		 op.type == OperationType::LESS   ||
-		 op.type == OperationType::BIGGEST   )
+	if ( op.type == OperationType::EQUALS  ||
+		 op.type == OperationType::LESS    ||
+		 op.type == OperationType::BIGGEST )
 	{
 		return 6;
 	}
@@ -287,4 +307,21 @@ OperationType Parser::getOperationType(const Token &token) const
 	if (token.type == TokenType::OP_NOT)      return OperationType::NOT;
 
 	return OperationType::NOT_FOUND;
+}
+
+std::string Parser::getNameOfOperand(const Operation &op) const
+{
+	if (op.type == OperationType::NUMBER)   return "push #";
+	if (op.type == OperationType::VARIABLE) return "push @";
+	if (op.type == OperationType::PLUS)     return "add";
+	if (op.type == OperationType::MINUS)    return "sub";
+	if (op.type == OperationType::MUL)      return "mul";
+	if (op.type == OperationType::DIV)      return "div";
+	if (op.type == OperationType::LESS)     return "comp_less";
+	if (op.type == OperationType::BIGGEST)  return "comp_bigg";
+	if (op.type == OperationType::EQUALS)   return "comp_equa";
+	if (op.type == OperationType::GOTO_F)   return "jn";
+	if (op.type == OperationType::GOTO)     return "jmp";
+
+	return "nop";
 }

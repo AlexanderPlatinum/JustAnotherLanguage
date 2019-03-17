@@ -3,20 +3,13 @@
 #include <map>
 #include <string>
 #include <vector>
+#include <fstream>
 #include <iostream>
 
 #include "Token.h"
 #include "Operation.h"
 
 const int NEED_CALCULATE = -1;
-
-enum class GotoType
-{
-	NoNeed,
-	Prev,
-	Next,
-	EveryWhere
-};
 
 class Parser
 {
@@ -41,6 +34,7 @@ public:
 
 	std::vector<Operation> GetOperations() const;
 	void PrintInfix() const;
+	void AssemblyListing(const std::string &fileName) const;
 
 private:
 	void copyFromOpStackToInfix();
@@ -55,4 +49,5 @@ private:
 	OperationType getOperationType( const Token &token ) const;
 	
 	char printType( const Operation &op ) const;
+	std::string getNameOfOperand(const Operation &op) const;
 };

@@ -19,6 +19,14 @@ enum class OperationType
 	NOT_FOUND
 };
 
+enum class GotoType
+{
+	NoNeed,
+	Prev,
+	Next,
+	EveryWhere
+};
+
 struct Operation
 {
 	OperationType type;

@@ -24,7 +24,7 @@ enum class TokenType
 	BRACKETS_OPEN,    // +
 	BRACKETS_F_OPEN,  // +
 	BRACKETS_F_CLOSE, // +
-	WHILE,            // -
+	WHILE,            // +
 	IF,               // +
 	ELSE,             // -
 	FOR,              // -

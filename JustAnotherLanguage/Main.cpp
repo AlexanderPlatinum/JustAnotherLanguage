@@ -9,7 +9,7 @@ int main(int argc, char **argv)
 	// Lexer
 	Lexer lexer;
 
-	lexer.Initialize("{ while ( 10 < 20 ) { a := 10 + 20 * ( 18 * 10 + 12 ); } if ( 10 = 20 ) { b:= 30 + 37; } }");
+	lexer.Initialize("{ while ( 10 < 20 ) { a := 10 + 20 * ( 18 * 10 + 12 ); if ( 2 > 3 ) { c := 10 * 7; } if ( 10 = 20 ) { b:= 30 + 37; } }");
 	lexer.Run();
 
 	std::vector<Token> tokens = lexer.GetTokens();
@@ -23,6 +23,7 @@ int main(int argc, char **argv)
 
 	std::vector<Operation> operations = parser.GetOperations();
 	parser.PrintInfix();
+	parser.AssemblyListing( "main.asm" );
 
 
 	// End
