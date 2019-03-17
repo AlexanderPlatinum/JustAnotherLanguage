@@ -57,7 +57,7 @@ void Lexer::PrintTokens() const
 	for (auto it = tokens.begin(); it != tokens.end(); ++it)
 	{
 		std::cout << "Token: " << std::endl;
-		std::cout << '\t' << "Type := " << it->type << std::endl;
+		std::cout << '\t' << "Type := " << static_cast<int>( it->type ) << std::endl;
 		std::cout << '\t' << "Value := " << it->value << std::endl;
 	}
 }

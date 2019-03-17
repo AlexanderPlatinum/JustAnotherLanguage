@@ -2,7 +2,7 @@
 
 #include <string>
 
-enum TokenType
+enum class TokenType
 {
 	VARIABLE = 1,
 	DIGIT,
