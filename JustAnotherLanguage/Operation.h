@@ -13,6 +13,7 @@ enum class OperationType
 	EQUALS,
 	OPEN,
 	CLOSE,
+	GOTO_F,
 	GOTO,
 	NOT,
 	NOT_FOUND

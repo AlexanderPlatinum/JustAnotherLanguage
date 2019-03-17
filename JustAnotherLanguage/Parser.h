@@ -10,6 +10,14 @@
 
 const int NEED_CALCULATE = -1;
 
+enum class GotoType
+{
+	NoNeed,
+	Prev,
+	Next,
+	EveryWhere
+};
+
 class Parser
 {
 private:
@@ -21,7 +29,9 @@ private:
 	std::vector<Operation> opStack;
 
 	std::vector<int> gotoLines;
-	bool needCloseGoto;
+	
+	std::map<int, GotoType> levels;
+	int currentLevel;
 
 public:
 	Parser();
@@ -35,7 +45,9 @@ public:
 private:
 	void copyFromOpStackToInfix();
 	void prepairMathOperands(const OperationType &currentOpType);
+	void prepairGoto();
 	void putGoto();
+	bool isNeedPutGotoFlag();
 
 	int getVariableIdByName(const std::string &name);
 

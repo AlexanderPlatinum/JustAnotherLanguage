@@ -1,7 +1,8 @@
 #include "Parser.h"
 
 Parser::Parser() :
-	countOfVariables(0), needCloseGoto(false)
+	countOfVariables(0),
+	currentLevel( 0 )
 {}
 
 void Parser::Initialize(const std::vector<Token> &tokens)
@@ -35,11 +36,10 @@ void Parser::Run()
 				opStack.pop_back();
 			}
 
-			if (needCloseGoto == true)
+			if (isNeedPutGotoFlag())
 			{
 				infix.push_back(Operation(OperationType::NUMBER, NEED_CALCULATE));
-				infix.push_back(Operation(OperationType::GOTO, 0));
-				needCloseGoto = false;
+				infix.push_back(Operation(OperationType::GOTO_F, 0));
 			}
 		}
 		else if (it->type == TokenType::BRACKETS_OPEN)
@@ -48,12 +48,27 @@ void Parser::Run()
 		}
 		else if ( it->type == TokenType::IF )
 		{
-			needCloseGoto = true;
+			levels[currentLevel + 1] = GotoType::Next;
+		}
+		else if (it->type == TokenType::WHILE)
+		{
+			levels[currentLevel + 1] = GotoType::EveryWhere;
+			gotoLines.push_back(infix.size());
+		}
+		else if ( it->type == TokenType::BRACKETS_F_OPEN )
+		{
+			currentLevel++;
 		}
 		else if (it->type == TokenType::BRACKETS_F_CLOSE)
 		{
 			copyFromOpStackToInfix();
-			gotoLines.push_back( infix.size() - 1 );
+			prepairGoto();
+
+			currentLevel--;
+			if (currentLevel <= 0)
+			{
+				levels.clear();
+			}
 		}
 		else
 		{
@@ -84,9 +99,13 @@ void Parser::PrintInfix() const
 		{
 			std::cout << "( var with id " << it->value << " ) ";
 		}
-		else if ( it->type == OperationType::GOTO )
+		else if ( it->type == OperationType::GOTO_F)
 		{
 			std::cout << "F! ";
+		}
+		else if (it->type == OperationType::GOTO)
+		{
+			std::cout << "! ";
 		}
 		else
 		{
@@ -130,6 +149,32 @@ void Parser::prepairMathOperands(const OperationType &currentOpType)
 	opStack.push_back(current);
 }
 
+void Parser::prepairGoto()
+{
+	GotoType type = levels[currentLevel];
+
+	if (type == GotoType::Prev)
+	{
+		infix.push_back(Operation(OperationType::NUMBER, NEED_CALCULATE));
+		infix.push_back(Operation(OperationType::GOTO, 0));
+	}
+
+	if (type == GotoType::Next)
+	{
+		gotoLines.push_back( infix.size() );
+	}
+
+	if (type == GotoType::EveryWhere)
+	{
+		infix.push_back(Operation(OperationType::NUMBER, NEED_CALCULATE));
+		infix.push_back(Operation(OperationType::GOTO, 0));
+
+		gotoLines.push_back(infix.size());
+	}
+
+	levels[currentLevel] = GotoType::NoNeed;
+}
+
 void Parser::putGoto()
 {
 	int line = 0;
@@ -142,6 +187,21 @@ void Parser::putGoto()
 			line++;
 		}
 	}
+}
+
+bool Parser::isNeedPutGotoFlag()
+{
+	if (levels.find( currentLevel + 1 ) == levels.end())
+	{
+		return false;
+	}
+
+	if (levels[currentLevel + 1] == GotoType::NoNeed)
+	{
+		return false;
+	}
+
+	return true;
 }
 
 int Parser::getVariableIdByName(const std::string &name)
@@ -177,7 +237,7 @@ char Parser::printType(const Operation &op) const
 
 int Parser::getPriority(const Operation &op) const
 {
-	if ( op.type == OperationType::GOTO )
+	if ( op.type == OperationType::GOTO_F)
 	{
 		return 10;
 	}
