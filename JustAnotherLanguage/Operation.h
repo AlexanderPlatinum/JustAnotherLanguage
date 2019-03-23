@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 enum class OperationType
 {
 	NUMBER,
@@ -38,3 +40,5 @@ struct Operation
 		: type(_type), value(_value)
 	{}
 };
+
+using Programm = std::vector<Operation>;
