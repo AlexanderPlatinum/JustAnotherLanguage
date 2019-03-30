@@ -270,12 +270,12 @@ int Parser::getPriority(const Operation &op) const
 		 op.type == OperationType::LESS    ||
 		 op.type == OperationType::BIGGEST )
 	{
-		return 6;
+		return 7;
 	}
 
 	if ( op.type == OperationType::NOT )
 	{
-		return 7;
+		return 6;
 	}
 
 	if ( op.type == OperationType::CLOSE ||

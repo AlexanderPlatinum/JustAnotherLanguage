@@ -113,6 +113,15 @@ Machine::Machine()
 			this->PushStack(result);
 		}
 	);
+
+	this->AddOperation( OperationType::NOT,
+		[this] ( Operation &op ) -> void
+		{
+			unsigned int res = ! this->PopStack();
+
+			this->PushStack(res);
+		}
+	);
 }
 
 void Machine::SetProgramm( const Programm &program )

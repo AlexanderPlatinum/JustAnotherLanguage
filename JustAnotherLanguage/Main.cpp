@@ -10,7 +10,7 @@ int main(int argc, char **argv)
 	// Lexer
 	Lexer lexer;
 
-	lexer.Initialize("{ if( 10 > 4 ) { (30 + 37) * 10; print; } }");
+	lexer.Initialize("{ if( ! 10 > 4 ) { (30 + 37) * 10; print; } }");
 	lexer.Run();
 
 	std::vector<Token> tokens = lexer.GetTokens();

@@ -17,7 +17,7 @@ enum class OperationType
 	CLOSE,    // ?
 	GOTO_F,   // +
 	GOTO,     // +
-	NOT,      // -
+	NOT,      // +
 	PRINT,    // +
 	NOT_FOUND
 };
