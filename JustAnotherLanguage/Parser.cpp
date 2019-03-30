@@ -23,24 +23,9 @@ void Parser::Run()
 			int id = getVariableIdByName( it->value );
 			infix.push_back(Operation(OperationType::VARIABLE, id));
 		}
-		else if (it->type == TokenType::BRACKETS_CLOSE)
+		else if ( it->type == TokenType::BRACKETS_CLOSE )
 		{
-			Operation op = opStack.back();
-			opStack.pop_back();
-
-			while (op.type != OperationType::OPEN)
-			{
-				infix.push_back(op);
-
-				op = opStack.back();
-				opStack.pop_back();
-			}
-
-			if (isNeedPutGotoFlag())
-			{
-				infix.push_back(Operation(OperationType::NUMBER, NEED_CALCULATE));
-				infix.push_back(Operation(OperationType::GOTO_F, 0));
-			}
+			bracketsClose();
 		}
 		else if (it->type == TokenType::BRACKETS_OPEN)
 		{
@@ -59,7 +44,7 @@ void Parser::Run()
 		{
 			currentLevel++;
 		}
-		else if (it->type == TokenType::BRACKETS_F_CLOSE)
+		else if (it->type == TokenType::BRACKETS_F_CLOSE )
 		{
 			copyFromOpStackToInfix();
 			prepairGoto();
@@ -69,6 +54,10 @@ void Parser::Run()
 			{
 				levels.clear();
 			}
+		}
+		else if ( it->type == TokenType::PRINT )
+		{
+			opStack.push_back(Operation(OperationType::PRINT, 0));
 		}
 		else
 		{
@@ -138,6 +127,8 @@ void Parser::AssemblyListing(const std::string &fileName) const
 
 void Parser::copyFromOpStackToInfix()
 {
+	std::reverse( opStack.begin(), opStack.end() );
+
 	while (opStack.size() != 0)
 	{
 		Operation op = opStack.back();
@@ -251,13 +242,14 @@ char Parser::printType(const Operation &op) const
 	if (op.type == OperationType::LESS)    return '<';
 	if (op.type == OperationType::BIGGEST) return '>';
 	if (op.type == OperationType::NOT)     return '!';
+	if (op.type == OperationType::PRINT)   return 'p';
 
 	return ' ';
 }
 
 int Parser::getPriority(const Operation &op) const
 {
-	if ( op.type == OperationType::GOTO_F)
+	if (op.type == OperationType::GOTO_F )
 	{
 		return 10;
 	}
@@ -287,7 +279,8 @@ int Parser::getPriority(const Operation &op) const
 	}
 
 	if ( op.type == OperationType::CLOSE ||
-		 op.type == OperationType::OPEN  )
+		 op.type == OperationType::OPEN  ||
+		 op.type == OperationType::PRINT )
 	{
 		return 1;
 	}
@@ -305,6 +298,7 @@ OperationType Parser::getOperationType(const Token &token) const
 	if (token.type == TokenType::OP_LESS)     return OperationType::LESS;
 	if (token.type == TokenType::OP_BIGGEST)  return OperationType::BIGGEST;
 	if (token.type == TokenType::OP_NOT)      return OperationType::NOT;
+	if (token.type == TokenType::PRINT)       return OperationType::PRINT;
 
 	return OperationType::NOT_FOUND;
 }
@@ -322,6 +316,27 @@ std::string Parser::getNameOfOperand(const Operation &op) const
 	if (op.type == OperationType::EQUALS)   return "comp_equa";
 	if (op.type == OperationType::GOTO_F)   return "jn";
 	if (op.type == OperationType::GOTO)     return "jmp";
+	if (op.type == OperationType::PRINT)    return "print";
 
 	return "nop";
+}
+
+void Parser::bracketsClose()
+{
+	Operation op = opStack.back();
+	opStack.pop_back();
+
+	while (op.type != OperationType::OPEN)
+	{
+		infix.push_back(op);
+
+		op = opStack.back();
+		opStack.pop_back();
+	}
+
+	if (isNeedPutGotoFlag())
+	{
+		infix.push_back(Operation(OperationType::NUMBER, NEED_CALCULATE));
+		infix.push_back(Operation(OperationType::GOTO_F, 0));
+	}
 }

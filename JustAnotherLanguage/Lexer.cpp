@@ -107,7 +107,12 @@ TokenType Lexer::getTokenType( const std::string &str ) const
 			type = TokenType::DIGIT;
 		}
 
-		if (std::regex_match(str, REGEX_WHILE))
+		if (std::regex_match(str, REGEX_PRINT))
+		{
+			count++;
+			type = TokenType::PRINT;
+		}
+		else if (std::regex_match(str, REGEX_WHILE))
 		{
 			count++;
 			type = TokenType::WHILE;

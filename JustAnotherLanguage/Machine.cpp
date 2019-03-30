@@ -20,7 +20,7 @@ void Machine::Run()
 {
 	while (true)
 	{
-		if (pc == program.size() - 1)
+		if (pc == program.size())
 		{
 			return;
 		}

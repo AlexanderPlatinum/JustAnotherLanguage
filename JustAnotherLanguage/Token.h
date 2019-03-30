@@ -29,6 +29,7 @@ enum class TokenType
 	ELSE,             // -
 	FOR,              // -
 	IN,               // -
+	PRINT,            // +
 	NO_MATCH,
 	ALSO_NEED
 };

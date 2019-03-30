@@ -5,6 +5,7 @@
 #include <vector>
 #include <fstream>
 #include <iostream>
+#include <algorithm>
 
 #include "Token.h"
 #include "Operation.h"
@@ -50,4 +51,6 @@ private:
 	
 	char printType( const Operation &op ) const;
 	std::string getNameOfOperand(const Operation &op) const;
+
+	void bracketsClose();
 };

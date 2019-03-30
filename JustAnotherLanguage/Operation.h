@@ -18,6 +18,7 @@ enum class OperationType
 	GOTO_F,
 	GOTO,
 	NOT,
+	PRINT,
 	NOT_FOUND
 };
 

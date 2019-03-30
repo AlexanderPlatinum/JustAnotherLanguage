@@ -12,6 +12,7 @@ const std::regex REGEX_IN("in");
 const std::regex REGEX_DEF("def");
 const std::regex REGEX_RETURN("return");
 const std::regex REGEX_ELSE("else");
+const std::regex REGEX_PRINT( "print" );
 
 const char REGEX_OP_COMMA = ',';
 const char REGEX_OP_COLON = ':';
