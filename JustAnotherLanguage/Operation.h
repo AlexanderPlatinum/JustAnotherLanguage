@@ -4,21 +4,21 @@
 
 enum class OperationType
 {
-	NUMBER,
-	VARIABLE,
-	PLUS,
-	MINUS,
-	MUL,
-	DIV,
-	LESS,
-	BIGGEST,
-	EQUALS,
-	OPEN,
-	CLOSE,
-	GOTO_F,
-	GOTO,
-	NOT,
-	PRINT,
+	NUMBER,   // +
+	VARIABLE, // - 
+	PLUS,     // +
+	MINUS,    // +
+	MUL,      // +
+	DIV,      // +
+	LESS,     // +
+	BIGGEST,  // +
+	EQUALS,   // +
+	OPEN,     // ?
+	CLOSE,    // ?
+	GOTO_F,   // +
+	GOTO,     // +
+	NOT,      // -
+	PRINT,    // +
 	NOT_FOUND
 };
 

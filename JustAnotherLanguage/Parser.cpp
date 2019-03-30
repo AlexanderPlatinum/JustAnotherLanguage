@@ -194,7 +194,7 @@ void Parser::putGoto()
 		if ( it->type  == OperationType::NUMBER &&
 			 it->value == NEED_CALCULATE )
 		{
-			it->value = gotoLines[line];
+			it->value = gotoLines[line] - 1;
 			line++;
 		}
 	}

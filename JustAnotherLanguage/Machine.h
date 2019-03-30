@@ -2,6 +2,7 @@
 
 #include <map>
 #include <vector>
+#include <iostream>
 #include <exception>
 #include <functional>
 
@@ -42,5 +43,6 @@ public:
 
 	void PushStack( Word word );
 	Word PopStack();
+	void SetPC( Word _pc );
 
 };
