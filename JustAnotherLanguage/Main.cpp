@@ -2,6 +2,7 @@
 
 #include "Lexer.h"
 #include "Parser.h"
+#include "Machine.h"
 
 int main(int argc, char **argv)
 {
@@ -25,6 +26,64 @@ int main(int argc, char **argv)
 	parser.PrintInfix();
 	parser.AssemblyListing( "main.asm" );
 
+	// Machine
+
+	Machine *machine = new Machine();
+
+	machine->SetProgramm(operations);
+
+	machine->AddOperation( OperationType::NUMBER,
+		[machine] ( Operation &op ) -> void {
+			machine->PushStack(op.value);
+		}
+	);
+
+	machine->AddOperation(OperationType::PLUS,
+		[machine](Operation &op) -> void {
+			unsigned int a = machine->PopStack();
+			unsigned int b = machine->PopStack();
+
+			machine->PushStack( a + b );
+		}
+	);
+
+	machine->AddOperation(OperationType::MINUS,
+		[machine](Operation &op) -> void {
+			unsigned int a = machine->PopStack();
+			unsigned int b = machine->PopStack();
+
+			machine->PushStack(a - b);
+		}
+	);
+
+	machine->AddOperation(OperationType::MUL,
+		[machine](Operation &op) -> void {
+			unsigned int a = machine->PopStack();
+			unsigned int b = machine->PopStack();
+
+			machine->PushStack(a * b);
+		}
+	);
+
+	machine->AddOperation(OperationType::DIV,
+		[machine](Operation &op) -> void {
+			unsigned int a = machine->PopStack();
+			unsigned int b = machine->PopStack();
+
+			machine->PushStack(a / b);
+		}
+	);
+
+	try
+	{
+		machine->Run();
+	}
+	catch ( RuntimeError &e )
+	{
+		std::cout << e.what() << std::endl;
+	}
+
+	delete machine;
 
 	// End
 	std::system("pause");

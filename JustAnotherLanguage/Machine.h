@@ -2,24 +2,45 @@
 
 #include <map>
 #include <vector>
+#include <exception>
 #include <functional>
 
 #include "Operation.h"
 
+class RuntimeError : public std::exception
+{
+public:
+	virtual char const* what() const
+	{
+		return "Unknow Operation in Machine::Run()";
+	}
+};
+
 class Machine
 {
 private:
-	unsigned int pc;
 
+	using Stack = std::vector<unsigned int>;
+	using Word = unsigned int;
+
+	Word pc;
 	Programm program;
-	std::vector<unsigned int> stack;
+	Stack stack;
+
+	std::map<OperationType, std::function<void( Operation &op)>> operations;
 
 public:
-	Machine() = default;
+	Machine();
 	~Machine() = default;
 
 	void SetProgramm( const Programm &program );
-	void AddOperation();
 	void Run();
 	void Reset();
+
+	void AddOperation(const OperationType &op,
+				      std::function<void(Operation &op)> func);
+
+	void PushStack( Word word );
+	Word PopStack();
+
 };
