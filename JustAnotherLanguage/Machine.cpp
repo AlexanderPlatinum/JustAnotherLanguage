@@ -13,8 +13,8 @@ Machine::Machine()
 	this->AddOperation(OperationType::PLUS,
 		[this](Operation &op) -> void
 		{
-			unsigned int a = this->PopStack();
-			unsigned int b = this->PopStack();
+			Word a = this->PopStack();
+			Word b = this->PopStack();
 
 			this->PushStack(a + b);
 		}
@@ -23,8 +23,8 @@ Machine::Machine()
 	this->AddOperation(OperationType::MINUS,
 		[this](Operation &op) -> void
 		{
-			unsigned int a = this->PopStack();
-			unsigned int b = this->PopStack();
+			Word a = this->PopStack();
+			Word b = this->PopStack();
 
 			this->PushStack(a - b);
 		}
@@ -33,8 +33,8 @@ Machine::Machine()
 	this->AddOperation(OperationType::MUL,
 		[this](Operation &op) -> void 
 		{
-			unsigned int a = this->PopStack();
-			unsigned int b = this->PopStack();
+			Word a = this->PopStack();
+			Word b = this->PopStack();
 
 			this->PushStack(a * b);
 		}
@@ -43,8 +43,8 @@ Machine::Machine()
 	this->AddOperation(OperationType::DIV,
 		[this](Operation &op) -> void
 		{
-			unsigned int a = this->PopStack();
-			unsigned int b = this->PopStack();
+			Word a = this->PopStack();
+			Word b = this->PopStack();
 
 			this->PushStack(a / b);
 		}
@@ -69,8 +69,8 @@ Machine::Machine()
 	this->AddOperation(OperationType::GOTO_F,
 		[this](Operation &op) -> void
 		{
-			unsigned int newPC = this->PopStack();
-			unsigned int flag = this->PopStack();
+			Word newPC = this->PopStack();
+			Word flag = this->PopStack();
 
 			if (static_cast<bool>(flag) == false)
 			{
@@ -82,10 +82,10 @@ Machine::Machine()
 	this->AddOperation(OperationType::LESS,
 		[this](Operation &op) -> void
 		{
-			unsigned int b = this->PopStack();
-			unsigned int a = this->PopStack();
+			Word b = this->PopStack();
+			Word a = this->PopStack();
 
-			unsigned int result = static_cast<unsigned int>(a < b);
+			Word result = static_cast<Word>(a < b);
 
 			this->PushStack(result);
 		}
@@ -94,10 +94,10 @@ Machine::Machine()
 	this->AddOperation(OperationType::BIGGEST,
 		[this](Operation &op) -> void
 		{
-			unsigned int b = this->PopStack();
-			unsigned int a = this->PopStack();
+			Word b = this->PopStack();
+			Word a = this->PopStack();
 
-			unsigned int result = static_cast<unsigned int>(a > b);
+			Word result = static_cast<Word>(a > b);
 
 			this->PushStack(result);
 		}
@@ -118,7 +118,7 @@ Machine::Machine()
 	this->AddOperation( OperationType::NOT,
 		[this] ( Operation &op ) -> void
 		{
-			unsigned int res = ! this->PopStack();
+			Word res = ! this->PopStack();
 
 			this->PushStack(res);
 		}

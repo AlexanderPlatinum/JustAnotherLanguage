@@ -5,7 +5,7 @@
 enum class OperationType
 {
 	NUMBER,   // +
-	VARIABLE, // - 
+	VARIABLE, // + 
 	PLUS,     // +
 	MINUS,    // +
 	MUL,      // +
