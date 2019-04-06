@@ -182,7 +182,7 @@ void Parser::prepairGoto()
 		infix.push_back(Operation(OperationType::NUMBER, NEED_CALCULATE));
 		infix.push_back(Operation(OperationType::GOTO, 0));
 
-		gotoLines.push_back(infix.size());
+		gotoLines.push_back(infix.size() );
 	}
 
 	levels[currentLevel] = GotoType::NoNeed;
@@ -190,14 +190,14 @@ void Parser::prepairGoto()
 
 void Parser::putGoto()
 {
-	int line = 0;
+	int line = gotoLines.size() - 1;
 	for ( auto it = infix.begin(); it != infix.end(); ++it )
 	{
 		if ( it->type  == OperationType::NUMBER &&
 			 it->value == NEED_CALCULATE )
 		{
-			it->value = gotoLines[line] - 1;
-			line++;
+			it->value = ( gotoLines[line] == 0 ) ? 0 : gotoLines[line] - 1;
+			line--;
 		}
 	}
 }

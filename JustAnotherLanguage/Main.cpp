@@ -1,16 +1,42 @@
 #include <iostream>
+#include <fstream>
 
 #include "Lexer.h"
 #include "Parser.h"
 #include "Machine.h"
 
+std::string getFileContent( const std::string &fileName )
+{
+	std::ifstream file( fileName );
+	std::string temp = "";
+
+	if ( ! file.is_open() )
+	{
+		std::cout << "File with name not open " << fileName << std::endl;
+	}
+
+	while( !file.eof() )
+	{
+		std::string temp2;
+		std::getline( file, temp2 );
+
+		temp += temp2;
+	}
+
+	std::cout << temp << std::endl;
+
+	return temp;
+}
+
 int main(int argc, char **argv)
 {
+
+	std::string file = getFileContent( argv[1] );
 
 	// Lexer
 	Lexer lexer;
 
-	lexer.Initialize("{ if( 10 > 4 ) { a = (30 + 37) * 10; b = 15 * 18; } print( a ); print( b ); }");
+	lexer.Initialize( file );
 	lexer.Run();
 
 	std::vector<Token> tokens = lexer.GetTokens();

@@ -53,15 +53,16 @@ Machine::Machine()
 	this->AddOperation(OperationType::PRINT,
 		[this](Operation &op) -> void
 		{
-			Word lastId = this->GetLastVaribleId();
-			std::cout << this->GetVaribleData( lastId ) << std::endl;
+			Word value = this->PopStack();
+			std::cout << value << std::endl;
 		}
 	);
 
 	this->AddOperation(OperationType::GOTO,
 		[this](Operation &op) -> void
 		{
-			this->SetPC(this->PopStack());
+			Word address = this->PopStack();
+			this->SetPC( address );
 		}
 	);
 
@@ -136,7 +137,16 @@ Machine::Machine()
 	this->AddOperation( OperationType::VARIABLE,
 		[ this ] ( Operation &op ) -> void
 		{
-			this->SetLastVaribleId( op.value );
+			Word id = op.value;
+
+			if ( this->isVariableSeted( id ) )
+			{
+				this->PushStack( GetVaribleData( id ) );
+			}
+			else
+			{
+				this->SetLastVaribleId( id );
+			}
 		}
 	);
 
@@ -218,4 +228,9 @@ Machine::Word Machine::GetLastVaribleId()
 	lastVaribleId.pop_back();
 
 	return temp;
+}
+
+bool Machine::isVariableSeted( Word variableID )
+{
+	return !( varibleData.find( variableID ) == varibleData.end() );
 }

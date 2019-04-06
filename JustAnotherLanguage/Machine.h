@@ -51,6 +51,8 @@ public:
 	void SetVaribleData( Word varibleId, Word data );
 	Word GetVaribleData( Word varivleId );
 
+	bool isVariableSeted( Word variableID );
+
 	void SetLastVaribleId( Word id );
 	Word GetLastVaribleId();
 
