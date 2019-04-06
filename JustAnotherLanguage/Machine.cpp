@@ -53,8 +53,8 @@ Machine::Machine()
 	this->AddOperation(OperationType::PRINT,
 		[this](Operation &op) -> void
 		{
-			unsigned int a = this->PopStack();
-			std::cout << a << std::endl;
+			Word lastId = this->GetLastVaribleId();
+			std::cout << this->GetVaribleData( lastId ) << std::endl;
 		}
 	);
 
@@ -102,7 +102,7 @@ Machine::Machine()
 		}
 	);
 
-	this->AddOperation(OperationType::EQUALS,
+	/*this->AddOperation(OperationType::EQUALS,
 		[this](Operation &op) -> void
 		{
 			unsigned int b = this->PopStack();
@@ -112,7 +112,7 @@ Machine::Machine()
 
 			this->PushStack(result);
 		}
-	);
+	);*/
 
 	this->AddOperation( OperationType::NOT,
 		[this] ( Operation &op ) -> void
@@ -122,6 +122,24 @@ Machine::Machine()
 			this->PushStack(res);
 		}
 	);
+
+	this->AddOperation( OperationType::EQUALS,
+		[ this ] ( Operation &op ) -> void
+		{
+			Word lastData = this->PopStack();
+			Word lastId = this->GetLastVaribleId();
+
+			this->SetVaribleData( lastId, lastData );
+		}
+	);
+
+	this->AddOperation( OperationType::VARIABLE,
+		[ this ] ( Operation &op ) -> void
+		{
+			this->SetLastVaribleId( op.value );
+		}
+	);
+
 }
 
 void Machine::SetProgramm( const Programm &program )
@@ -177,4 +195,27 @@ Machine::Word Machine::PopStack()
 void Machine::SetPC( Word _pc )
 {
 	pc = _pc;
+}
+
+void Machine::SetVaribleData( Word varibleId, Word data )
+{
+	varibleData[varibleId] = data;
+}
+
+Machine::Word Machine::GetVaribleData( Word varibleId )
+{
+	return varibleData[varibleId];
+}
+
+void Machine::SetLastVaribleId( Word id )
+{
+	lastVaribleId.push_back( id );
+}
+
+Machine::Word Machine::GetLastVaribleId()
+{
+	Word temp = lastVaribleId[lastVaribleId.size() - 1];
+	lastVaribleId.pop_back();
+
+	return temp;
 }

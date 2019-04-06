@@ -29,6 +29,9 @@ private:
 	Stack stack;
 
 	std::map<OperationType, std::function<void( Operation &op)>> operations;
+	std::map<Word, Word> varibleData;
+
+	std::vector<Word> lastVaribleId;
 
 public:
 	Machine();
@@ -44,5 +47,11 @@ public:
 	void PushStack( Word word );
 	Word PopStack();
 	void SetPC( Word _pc );
+
+	void SetVaribleData( Word varibleId, Word data );
+	Word GetVaribleData( Word varivleId );
+
+	void SetLastVaribleId( Word id );
+	Word GetLastVaribleId();
 
 };

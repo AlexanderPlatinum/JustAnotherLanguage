@@ -46,14 +46,16 @@ void Parser::Run()
 		}
 		else if (it->type == TokenType::BRACKETS_F_CLOSE )
 		{
-			copyFromOpStackToInfix();
-			prepairGoto();
-
 			currentLevel--;
 			if (currentLevel <= 0)
 			{
 				levels.clear();
 			}
+		}
+		else if ( it->type == TokenType::OP_SEMICONON )
+		{
+			copyFromOpStackToInfix();
+			prepairGoto();
 		}
 		else if ( it->type == TokenType::PRINT )
 		{
@@ -127,7 +129,7 @@ void Parser::AssemblyListing(const std::string &fileName) const
 
 void Parser::copyFromOpStackToInfix()
 {
-	std::reverse( opStack.begin(), opStack.end() );
+	//std::reverse( opStack.begin(), opStack.end() );
 
 	while (opStack.size() != 0)
 	{
@@ -249,9 +251,10 @@ char Parser::printType(const Operation &op) const
 
 int Parser::getPriority(const Operation &op) const
 {
+
 	if (op.type == OperationType::GOTO_F )
 	{
-		return 10;
+		return 11;
 	}
 
 	if ( op.type == OperationType::DIV ||
@@ -266,8 +269,7 @@ int Parser::getPriority(const Operation &op) const
 		return 8;
 	}
 
-	if ( op.type == OperationType::EQUALS  ||
-		 op.type == OperationType::LESS    ||
+	if ( op.type == OperationType::LESS    ||
 		 op.type == OperationType::BIGGEST )
 	{
 		return 7;
