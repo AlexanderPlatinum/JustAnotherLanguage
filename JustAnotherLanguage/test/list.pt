@@ -1,0 +1,10 @@
+list_add( 5 );
+list_add( 7 );
+
+list_next();
+a := list_get_value();
+print( a );
+
+list_next();
+b := list_get_value();
+print( b );

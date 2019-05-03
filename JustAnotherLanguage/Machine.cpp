@@ -153,9 +153,9 @@ Machine::Machine()
 	this->AddOperation( OperationType::LIST_NEXT,
 		[this] ( Operation &op ) -> void
 		{
-			Word flag = static_cast<Word>( this->NextList() );
-
-			this->PushStack( flag );
+			this->NextList();
+			//Word flag = static_cast<Word>( this->NextList() );
+			//this->PushStack( flag );
 		}
 	);
 
