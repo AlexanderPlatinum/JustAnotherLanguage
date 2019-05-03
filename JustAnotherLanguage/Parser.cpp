@@ -61,6 +61,22 @@ void Parser::Run()
 		{
 			opStack.push_back(Operation(OperationType::PRINT, 0));
 		}
+		else if ( it->type == TokenType::LIST_ADD )
+		{
+			opStack.push_back(Operation(OperationType::LIST_ADD, 0));
+		}
+		else if ( it->type == TokenType::LIST_TO_START )
+		{
+			opStack.push_back(Operation(OperationType::LIST_TO_START, 0));
+		}
+		else if ( it->type == TokenType::LIST_NEXT )
+		{
+			opStack.push_back(Operation(OperationType::LIST_NEXT, 0));
+		}
+		else if ( it->type == TokenType::LIST_GET_VALUE )
+		{
+			opStack.push_back(Operation(OperationType::LIST_GET_VALUE, 0));
+		}
 		else
 		{
 			OperationType currentOpType = getOperationType(*it);
@@ -236,15 +252,19 @@ int Parser::getVariableIdByName(const std::string &name)
 
 char Parser::printType(const Operation &op) const
 {
-	if (op.type == OperationType::DIV)     return '/';
-	if (op.type == OperationType::MUL)     return '*';
-	if (op.type == OperationType::PLUS)    return '+';
-	if (op.type == OperationType::MINUS)   return '-';
-	if (op.type == OperationType::EQUALS)  return '=';
-	if (op.type == OperationType::LESS)    return '<';
-	if (op.type == OperationType::BIGGEST) return '>';
-	if (op.type == OperationType::NOT)     return '!';
-	if (op.type == OperationType::PRINT)   return 'p';
+	if (op.type == OperationType::DIV)            return '/';
+	if (op.type == OperationType::MUL)            return '*';
+	if (op.type == OperationType::PLUS)           return '+';
+	if (op.type == OperationType::MINUS)          return '-';
+	if (op.type == OperationType::EQUALS)         return '=';
+	if (op.type == OperationType::LESS)           return '<';
+	if (op.type == OperationType::BIGGEST)        return '>';
+	if (op.type == OperationType::NOT)            return '!';
+	if (op.type == OperationType::PRINT)          return 'p';
+	if (op.type == OperationType::LIST_ADD)       return 'A';
+	if (op.type == OperationType::LIST_GET_VALUE) return 'V';
+	if (op.type == OperationType::LIST_NEXT)      return 'N';
+	if (op.type == OperationType::LIST_TO_START)  return 'S';
 
 	return ' ';
 }
@@ -282,7 +302,11 @@ int Parser::getPriority(const Operation &op) const
 
 	if ( op.type == OperationType::CLOSE ||
 		 op.type == OperationType::OPEN  ||
-		 op.type == OperationType::PRINT )
+		 op.type == OperationType::PRINT ||
+		 op.type == OperationType::LIST_ADD      ||
+		 op.type == OperationType::LIST_TO_START ||
+		 op.type == OperationType::LIST_NEXT     ||
+		 op.type == OperationType::LIST_GET_VALUE )
 	{
 		return 1;
 	}
@@ -307,18 +331,22 @@ OperationType Parser::getOperationType(const Token &token) const
 
 std::string Parser::getNameOfOperand(const Operation &op) const
 {
-	if (op.type == OperationType::NUMBER)   return "push #";
-	if (op.type == OperationType::VARIABLE) return "push @";
-	if (op.type == OperationType::PLUS)     return "add";
-	if (op.type == OperationType::MINUS)    return "sub";
-	if (op.type == OperationType::MUL)      return "mul";
-	if (op.type == OperationType::DIV)      return "div";
-	if (op.type == OperationType::LESS)     return "comp_less";
-	if (op.type == OperationType::BIGGEST)  return "comp_bigg";
-	if (op.type == OperationType::EQUALS)   return "comp_equa";
-	if (op.type == OperationType::GOTO_F)   return "jn";
-	if (op.type == OperationType::GOTO)     return "jmp";
-	if (op.type == OperationType::PRINT)    return "print";
+	if (op.type == OperationType::NUMBER)         return "push #";
+	if (op.type == OperationType::VARIABLE)       return "push @";
+	if (op.type == OperationType::PLUS)           return "add";
+	if (op.type == OperationType::MINUS)          return "sub";
+	if (op.type == OperationType::MUL)            return "mul";
+	if (op.type == OperationType::DIV)            return "div";
+	if (op.type == OperationType::LESS)           return "comp_less";
+	if (op.type == OperationType::BIGGEST)        return "comp_bigg";
+	if (op.type == OperationType::EQUALS)         return "comp_equa";
+	if (op.type == OperationType::GOTO_F)         return "jn";
+	if (op.type == OperationType::GOTO)           return "jmp";
+	if (op.type == OperationType::PRINT)          return "print";
+	if (op.type == OperationType::LIST_ADD)       return "list_add";
+	if (op.type == OperationType::LIST_GET_VALUE) return "list_get_value";
+	if (op.type == OperationType::LIST_NEXT)      return "list_next";
+	if (op.type == OperationType::LIST_TO_START)  return "list_to_start";
 
 	return "nop";
 }

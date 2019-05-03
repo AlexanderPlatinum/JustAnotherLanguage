@@ -13,6 +13,10 @@ const std::regex REGEX_DEF("def");
 const std::regex REGEX_RETURN("return");
 const std::regex REGEX_ELSE("else");
 const std::regex REGEX_PRINT( "print" );
+const std::regex REGEX_ADD( "list_add" );
+const std::regex REGEX_NEXT( "list_next" );
+const std::regex REGEX_TO_START( "list_to_start" );
+const std::regex REGEX_GET_VALUE( "list_get_value" );
 
 const char REGEX_OP_COMMA = ',';
 const char REGEX_OP_COLON = ':';

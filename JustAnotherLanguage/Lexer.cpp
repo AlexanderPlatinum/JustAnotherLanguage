@@ -100,17 +100,35 @@ TokenType Lexer::getTokenType( const std::string &str ) const
 			count++;
 			type = TokenType::ASSIGN_OP;
 		}
-
-		if (std::regex_match(str, REGEX_DIGIT))
+		else if (std::regex_match(str, REGEX_DIGIT))
 		{
 			count++;
 			type = TokenType::DIGIT;
 		}
-
-		if (std::regex_match(str, REGEX_PRINT))
+		else if (std::regex_match(str, REGEX_PRINT))
 		{
 			count++;
 			type = TokenType::PRINT;
+		}
+		else if (std::regex_match(str, REGEX_ADD))
+		{
+			count++;
+			type = TokenType::LIST_ADD;
+		}
+		else if (std::regex_match(str, REGEX_NEXT))
+		{
+			count++;
+			type = TokenType::LIST_NEXT;
+		}
+		else if (std::regex_match(str, REGEX_TO_START))
+		{
+			count++;
+			type = TokenType::LIST_TO_START;
+		}
+		else if (std::regex_match(str, REGEX_GET_VALUE))
+		{
+			count++;
+			type = TokenType::LIST_GET_VALUE;
 		}
 		else if (std::regex_match(str, REGEX_WHILE))
 		{

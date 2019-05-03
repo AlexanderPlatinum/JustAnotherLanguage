@@ -6,6 +6,7 @@
 #include <exception>
 #include <functional>
 
+#include "List.h"
 #include "Operation.h"
 
 class RuntimeError : public std::exception
@@ -33,6 +34,8 @@ private:
 
 	std::vector<Word> lastVaribleId;
 
+	List <Word> myList;
+
 public:
 	Machine();
 	~Machine() = default;
@@ -56,4 +59,8 @@ public:
 	void SetLastVaribleId( Word id );
 	Word GetLastVaribleId();
 
+	void AddToList( Word value );
+	Word GetValueFromList();
+	bool NextList();
+	void ToStartList();
 };

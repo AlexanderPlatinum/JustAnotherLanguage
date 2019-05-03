@@ -19,6 +19,10 @@ enum class OperationType
 	GOTO,     // +
 	NOT,      // +
 	PRINT,    // +
+	LIST_ADD,
+	LIST_NEXT,
+	LIST_TO_START,
+	LIST_GET_VALUE,
 	NOT_FOUND
 };
 

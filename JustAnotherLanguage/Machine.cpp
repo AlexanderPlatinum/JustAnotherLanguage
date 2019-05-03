@@ -134,6 +134,54 @@ Machine::Machine()
 		}
 	);
 
+	this->AddOperation( OperationType::LIST_ADD,
+		[this] ( Operation &op ) -> void
+		{
+			Word data = this->PopStack();
+
+			this->AddToList( data );
+		}
+	);
+
+	this->AddOperation( OperationType::LIST_TO_START,
+		[this] ( Operation &op ) -> void
+		{
+			this->ToStartList();
+		}
+	);
+
+	this->AddOperation( OperationType::LIST_NEXT,
+		[this] ( Operation &op ) -> void
+		{
+			Word flag = static_cast<Word>( this->NextList() );
+
+			this->PushStack( flag );
+		}
+	);
+
+	this->AddOperation( OperationType::LIST_GET_VALUE,
+		[this] ( Operation &op ) -> void 
+		{
+			try
+			{
+				Word data = this->GetValueFromList();
+				this->PushStack( data );
+			}
+			catch( ListNullreferenceException &e )
+			{
+				std::cout << e.what() << std::endl;
+
+				throw RuntimeError();
+			}
+			catch( ListNotInitializedException &e )
+			{
+				std::cout << e.what() << std::endl;
+
+				throw RuntimeError();
+			}
+		}
+	);
+
 	this->AddOperation( OperationType::VARIABLE,
 		[ this ] ( Operation &op ) -> void
 		{
@@ -233,4 +281,24 @@ Machine::Word Machine::GetLastVaribleId()
 bool Machine::isVariableSeted( Word variableID )
 {
 	return !( varibleData.find( variableID ) == varibleData.end() );
+}
+
+void Machine::AddToList( Word value )
+{
+	myList.Add( value );
+}
+
+Machine::Word Machine::GetValueFromList()
+{
+	return myList.GetValue();
+}
+
+bool Machine::NextList()
+{
+	return myList.Next();
+}
+
+void Machine::ToStartList()
+{
+	myList.ToStart();
 }

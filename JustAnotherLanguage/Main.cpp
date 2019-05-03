@@ -29,7 +29,7 @@ std::string getFileContent( const std::string &fileName )
 int main(int argc, char **argv)
 {
 
-	std::string file = getFileContent( argv[1] );
+	std::string file = getFileContent( "main.pt" );
 
 	// Lexer
 	Lexer lexer;
@@ -38,7 +38,7 @@ int main(int argc, char **argv)
 	lexer.Run();
 
 	std::vector<Token> tokens = lexer.GetTokens();
-	//lexer.PrintTokens();
+	lexer.PrintTokens();
 
 	// Parsers
 	Parser parser;
@@ -47,8 +47,8 @@ int main(int argc, char **argv)
 	parser.Run();
 
 	std::vector<Operation> operations = parser.GetOperations();
-	//parser.PrintInfix();
-	//parser.AssemblyListing( "main.asm" );
+	parser.PrintInfix();
+	parser.AssemblyListing( "main.asm" );
 
 	// Machine
 
