@@ -1,18 +1,8 @@
-push #5
-push #10
-hash_set_add
-push #6
-push #14
-hash_set_add
-push @0
-push #5
-hash_set_get
-comp_equa
-push @1
-push #6
-hash_set_get
-comp_equa
-push @0
-print
-push @1
-print
+hash_set_add( 5, 10 );
+hash_set_add( 6, 14 );
+
+a = hash_set_get( 5 );
+b = hash_set_get( 6 );
+
+print( a );
+print( b );
