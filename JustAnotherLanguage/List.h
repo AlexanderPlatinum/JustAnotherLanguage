@@ -83,8 +83,8 @@ public:
 
     void ToStart()
     {
-        this->iter = root;
-        this->isStarted = true;
+        this->iter = nullptr;
+        this->isStarted = false;
     }
 
     bool Next()
@@ -96,7 +96,8 @@ public:
 
         if ( isStarted == false )
         {
-            ToStart();
+            this->iter = root;
+            this->isStarted = true;
             return true;
         }
 

@@ -50,6 +50,7 @@ public:
     TypeValue Get( TypeIndex index )
     {
         int localIndex = calculateLocalIndex( index );
+        lists[localIndex].ToStart();
 
         try
         {

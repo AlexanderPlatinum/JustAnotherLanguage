@@ -1,8 +1,8 @@
 hash_set_add( 5, 10 );
 hash_set_add( 6, 14 );
 
-a = hash_set_get( 5 );
-b = hash_set_get( 6 );
+a = hash_set_get( 6 );
+b = hash_set_get( 5 );
 
 print( a );
 print( b );

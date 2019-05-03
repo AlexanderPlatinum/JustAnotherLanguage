@@ -30,58 +30,37 @@ std::string getFileContent( const std::string &fileName )
 
 int main(int argc, char **argv)
 {
+	std::string file = getFileContent( argv[1] );
 
-	/*
-	HashSet<int, int> hashSet;
-
-	hashSet.Add( 10, 5 );
-	hashSet.Add( 11, 6 );
-
-	int a = hashSet.Get( 10 );
-	int b = hashSet.Get( 11 );
-
-	std::cout << "a := " << a << " b := " << b << std::endl;
-	*/
-	
-	std::string file = getFileContent( "main.pt" );
-
-	// Lexer
 	Lexer lexer;
-
 	lexer.Initialize( file );
 	lexer.Run();
 
 	std::vector<Token> tokens = lexer.GetTokens();
-	lexer.PrintTokens();
 
-	// Parsers
 	Parser parser;
-
 	parser.Initialize( tokens );
 	parser.Run();
 
 	std::vector<Operation> operations = parser.GetOperations();
-	parser.PrintInfix();
-	parser.AssemblyListing( "main.asm" );
 
-	// Machine
-
-	std::cout << "Start working machine >" << std::endl << std::endl;
-
-	Machine *machine = new Machine();
-
-	machine->SetProgramm(operations);
+	Machine machine;
+	machine.SetProgramm(operations);
 
 	try
 	{
-		machine->Run();
+		machine.Run();
 	}
 	catch ( RuntimeError &e )
 	{
 		std::cout << e.what() << std::endl;
 	}
 
-	delete machine;
+	#ifdef PRINT_DEBUG
+	lexer.PrintTokens();
+	parser.PrintInfix();
+	parser.AssemblyListing( "main.asm" );
+	#endif
 
 	#ifdef _WIN32
 	std::system("pause");
