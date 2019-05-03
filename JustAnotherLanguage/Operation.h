@@ -4,26 +4,28 @@
 
 enum class OperationType
 {
-	NUMBER,   // +
-	VARIABLE, // + 
-	PLUS,     // +
-	MINUS,    // +
-	MUL,      // +
-	DIV,      // +
-	LESS,     // +
-	BIGGEST,  // +
-	EQUALS,   // +
-	OPEN,     // ?
-	CLOSE,    // ?
-	GOTO_F,   // +
-	GOTO,     // +
-	NOT,      // +
-	PRINT,    // +
-	LIST_ADD,
-	LIST_NEXT,
-	LIST_TO_START,
-	LIST_GET_VALUE,
-	NOT_FOUND
+	NUMBER,         // +
+	VARIABLE,       // + 
+	PLUS,           // +
+	MINUS,          // +
+	MUL,            // +
+	DIV,            // +
+	LESS,           // +
+	BIGGEST,        // +
+	EQUALS,         // +
+	OPEN,           // ?
+	CLOSE,          // ?
+	GOTO_F,         // +
+	GOTO,           // +
+	NOT,            // +
+	PRINT,          // +
+	LIST_ADD,       // +
+	LIST_NEXT,      // + 
+	LIST_TO_START,  // +
+	LIST_GET_VALUE, // +
+	HASHSET_ADD,    // +
+	HASHSET_GET,    // +
+	NOT_FOUND       // +
 };
 
 enum class GotoType

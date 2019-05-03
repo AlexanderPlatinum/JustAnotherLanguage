@@ -25,21 +25,25 @@ class List
 {
 private:
 
-    struct Item
+    struct ListItem
     {
         Type value;
-        Item *next;
+        ListItem *next;
 
-        Item ( Type value )
-        {
-            this->value = value;
-            this->next = nullptr;
-        }
+        ListItem() = default;
+
+        ListItem ( Type _value )
+            : value( _value ), next( nullptr )
+        {}
+
+        ListItem ( const ListItem &item )
+            : value( item.value ), next( item.next )
+        {}
     };
 
 private:
-    Item *root;
-    Item *iter;
+    ListItem *root;
+    ListItem *iter;
     bool isStarted;
 
 public:
@@ -60,16 +64,16 @@ public:
     {
         if ( root == nullptr )
         {
-            root = new Item( value );
+            root = new ListItem( value );
             return;
         }
 
-        Item *current = root;
+        ListItem *current = root;
         while ( current != nullptr )
         {
             if ( current->next == nullptr )
             {
-                current->next = new Item( value );
+                current->next = new ListItem( value );
                 return;
             }
 
@@ -79,8 +83,8 @@ public:
 
     void ToStart()
     {
-        iter = root;
-        isStarted = true;
+        this->iter = root;
+        this->isStarted = true;
     }
 
     bool Next()
@@ -122,8 +126,8 @@ public:
 
     void Clear()
     {
-        Item *current = root;
-        Item *toDelete = nullptr;
+        ListItem *current = root;
+        ListItem *toDelete = nullptr;
 
         while ( current != nullptr )
         {

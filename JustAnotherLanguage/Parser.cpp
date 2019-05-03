@@ -76,6 +76,14 @@ void Parser::Run()
 		else if ( it->type == TokenType::LIST_GET_VALUE )
 		{
 			opStack.push_back(Operation(OperationType::LIST_GET_VALUE, 0));
+		} 
+		else if ( it->type == TokenType::HASHSET_ADD )
+		{
+			opStack.push_back(Operation(OperationType::HASHSET_ADD, 0));
+		}
+		else if ( it->type == TokenType::HASHSET_GET )
+		{
+			opStack.push_back(Operation(OperationType::HASHSET_GET, 0));
 		}
 		else
 		{
@@ -265,6 +273,8 @@ char Parser::printType(const Operation &op) const
 	if (op.type == OperationType::LIST_GET_VALUE) return 'V';
 	if (op.type == OperationType::LIST_NEXT)      return 'N';
 	if (op.type == OperationType::LIST_TO_START)  return 'S';
+	if (op.type == OperationType::HASHSET_ADD)    return 'H';
+	if (op.type == OperationType::HASHSET_GET)    return 'h';
 
 	return ' ';
 }
@@ -303,10 +313,12 @@ int Parser::getPriority(const Operation &op) const
 	if ( op.type == OperationType::CLOSE ||
 		 op.type == OperationType::OPEN  ||
 		 op.type == OperationType::PRINT ||
-		 op.type == OperationType::LIST_ADD      ||
-		 op.type == OperationType::LIST_TO_START ||
-		 op.type == OperationType::LIST_NEXT     ||
-		 op.type == OperationType::LIST_GET_VALUE )
+		 op.type == OperationType::LIST_ADD       ||
+		 op.type == OperationType::LIST_TO_START  ||
+		 op.type == OperationType::LIST_NEXT      ||
+		 op.type == OperationType::LIST_GET_VALUE ||
+		 op.type == OperationType::HASHSET_ADD    ||
+		 op.type == OperationType::HASHSET_GET      )
 	{
 		return 1;
 	}
@@ -347,6 +359,8 @@ std::string Parser::getNameOfOperand(const Operation &op) const
 	if (op.type == OperationType::LIST_GET_VALUE) return "list_get_value";
 	if (op.type == OperationType::LIST_NEXT)      return "list_next";
 	if (op.type == OperationType::LIST_TO_START)  return "list_to_start";
+	if (op.type == OperationType::HASHSET_ADD)    return "hash_set_add";
+	if (op.type == OperationType::HASHSET_GET)    return "hash_set_get";
 
 	return "nop";
 }

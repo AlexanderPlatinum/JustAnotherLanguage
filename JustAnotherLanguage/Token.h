@@ -30,10 +30,12 @@ enum class TokenType
 	FOR,              // -
 	IN,               // -
 	PRINT,            // +
-	LIST_ADD,
-	LIST_NEXT,
-	LIST_TO_START,
-	LIST_GET_VALUE,
+	LIST_ADD,         // +
+	LIST_NEXT,        // +
+	LIST_TO_START,    // +
+	LIST_GET_VALUE,   // +
+	HASHSET_ADD,      // +
+	HASHSET_GET,      // +
 	NO_MATCH,
 	ALSO_NEED
 };

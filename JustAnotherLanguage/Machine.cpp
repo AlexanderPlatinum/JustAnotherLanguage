@@ -182,6 +182,36 @@ Machine::Machine()
 		}
 	);
 
+	this->AddOperation( OperationType::HASHSET_ADD,
+		[this] ( Operation &op ) -> void 
+		{
+			Word value = this->PopStack();
+			Word index = this->PopStack();
+
+			this->AddToHashSet( index, value );
+		}
+	);
+
+	this->AddOperation( OperationType::HASHSET_GET,
+		[this] ( Operation &op ) -> void 
+		{
+			Word index = this->PopStack();
+
+			try
+			{
+				Word value = this->GetFromHashSet( index );
+				this->PushStack( value );
+			}
+			catch ( NotFoundHashSetException &e )
+			{
+				std::cout << e.what() << std::endl;
+
+				throw RuntimeError(); 
+			}
+			
+		}
+	);
+
 	this->AddOperation( OperationType::VARIABLE,
 		[ this ] ( Operation &op ) -> void
 		{
@@ -215,7 +245,7 @@ void Machine::Run()
 {
 	while (true)
 	{
-		if (pc == program.size())
+		if (pc >= program.size())
 		{
 			return;
 		}
@@ -301,4 +331,14 @@ bool Machine::NextList()
 void Machine::ToStartList()
 {
 	myList.ToStart();
+}
+
+void Machine::AddToHashSet( Word index, Word value )
+{
+	myHashSet.Add( index, value );
+}
+
+Machine::Word Machine::GetFromHashSet( Word index )
+{
+	return myHashSet.Get( index );
 }

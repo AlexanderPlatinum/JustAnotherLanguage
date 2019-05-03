@@ -5,6 +5,8 @@
 #include "Parser.h"
 #include "Machine.h"
 
+#include "HashSet.h"
+
 std::string getFileContent( const std::string &fileName )
 {
 	std::ifstream file( fileName );
@@ -29,6 +31,18 @@ std::string getFileContent( const std::string &fileName )
 int main(int argc, char **argv)
 {
 
+	/*
+	HashSet<int, int> hashSet;
+
+	hashSet.Add( 10, 5 );
+	hashSet.Add( 11, 6 );
+
+	int a = hashSet.Get( 10 );
+	int b = hashSet.Get( 11 );
+
+	std::cout << "a := " << a << " b := " << b << std::endl;
+	*/
+	
 	std::string file = getFileContent( "main.pt" );
 
 	// Lexer

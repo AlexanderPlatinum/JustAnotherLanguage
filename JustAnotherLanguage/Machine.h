@@ -7,6 +7,7 @@
 #include <functional>
 
 #include "List.h"
+#include "HashSet.h"
 #include "Operation.h"
 
 class RuntimeError : public std::exception
@@ -34,7 +35,8 @@ private:
 
 	std::vector<Word> lastVaribleId;
 
-	List <Word> myList;
+	List    <Word>       myList;
+	HashSet <Word, Word> myHashSet;
 
 public:
 	Machine();
@@ -63,4 +65,7 @@ public:
 	Word GetValueFromList();
 	bool NextList();
 	void ToStartList();
+
+	void AddToHashSet( Word index, Word value );
+	Word GetFromHashSet( Word index );
 };
