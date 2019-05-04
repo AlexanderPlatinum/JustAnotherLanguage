@@ -1,4 +1,4 @@
-build: Lexer.o Machine.o Parser.o Main.o
+build: prepair Lexer.o Machine.o Parser.o Main.o
 	g++ -std=c++11 -Wall ./obj/*.o -o compiler
 
 Lexer.o:
@@ -12,3 +12,10 @@ Parser.o:
 
 Main.o:
 	g++ -std=c++11 -Wall -c Main.cpp -o ./obj/Main.o
+
+prepair:
+	mkdir ./obj/
+
+clean:
+	rm -r ./obj/
+	rm compiler

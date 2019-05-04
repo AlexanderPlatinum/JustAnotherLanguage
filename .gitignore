@@ -1,0 +1,9 @@
+./obj
+.vscode
+*.vscode*
+compiler
+*.o
+*.asm
+
+.DS_Store*
+*.DS_Store*
