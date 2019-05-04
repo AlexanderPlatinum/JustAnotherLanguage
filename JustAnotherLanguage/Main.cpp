@@ -12,9 +12,9 @@ std::string getFileContent( const std::string &fileName )
 	std::ifstream file( fileName );
 	std::string temp = "";
 
-	if ( ! file.is_open() )
+	if ( !file.is_open() )
 	{
-		std::cout << "File with name not open " << fileName << std::endl;
+		std::cout << "error: File with name not open " << fileName << std::endl;
 	}
 
 	while( !file.eof() )
@@ -30,6 +30,13 @@ std::string getFileContent( const std::string &fileName )
 
 int main(int argc, char **argv)
 {
+
+	if ( argc <= 1 )
+	{
+		std::cout << "error: Input file not selected" << std::endl;
+		return -1;
+	}
+
 	std::string file = getFileContent( argv[1] );
 
 	Lexer lexer;
@@ -57,13 +64,13 @@ int main(int argc, char **argv)
 	}
 
 	#ifdef PRINT_DEBUG
-	lexer.PrintTokens();
-	parser.PrintInfix();
-	parser.AssemblyListing( "main.asm" );
+		lexer.PrintTokens();
+		parser.PrintInfix();
+		parser.AssemblyListing( "main.asm" );
 	#endif
 
 	#ifdef _WIN32
-	std::system("pause");
+		std::system("pause");
 	#endif
 
 	return 0;

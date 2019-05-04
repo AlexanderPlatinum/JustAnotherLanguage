@@ -15,7 +15,7 @@ class RuntimeError : public std::exception
 public:
 	virtual char const* what() const noexcept
 	{
-		return "Unknow Operation in Machine::Run()";
+		return "Runtime error in Machine::Run()";
 	}
 };
 
