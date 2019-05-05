@@ -101,12 +101,13 @@ public:
             return true;
         }
 
+        iter = iter->next;
+
         if ( iter == nullptr )
         {
             return false;
         }
 
-        iter = iter->next;
         return true;
     }
 

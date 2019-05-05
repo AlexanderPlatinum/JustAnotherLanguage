@@ -34,8 +34,8 @@ private:
     };
 
 private:
-    static const int COUNT_OF_HASH_SET = 16;
-    List<HashMapItem> lists[COUNT_OF_HASH_SET];
+    static const int COUNT_OF_HASH_MAP = 16;
+    List<HashMapItem> lists[COUNT_OF_HASH_MAP];
 
 public:
     HashMap() = default;
@@ -82,7 +82,7 @@ public:
 
     void Clear ()
     {
-        for ( int i = 0; i < COUNT_OF_HASH_SET; i++ )
+        for ( int i = 0; i < COUNT_OF_HASH_MAP; i++ )
         {
             lists[i].Clear();
         }
