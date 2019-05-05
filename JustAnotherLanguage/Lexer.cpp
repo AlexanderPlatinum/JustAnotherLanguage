@@ -139,7 +139,7 @@ TokenType Lexer::getTokenType( const std::string &str ) const
 		{
 			count++;
 			type = TokenType::HASHMAP_GET;
-		}
+		} // Hash set start
 		else if (std::regex_match(str, REGEX_ADD_HASHSET))
 		{
 			count++;

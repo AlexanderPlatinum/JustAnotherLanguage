@@ -60,7 +60,7 @@ void Parser::Run()
 		else if ( it->type == TokenType::PRINT )
 		{
 			opStack.push_back(Operation(OperationType::PRINT, 0));
-		}
+		} // List start
 		else if ( it->type == TokenType::LIST_ADD )
 		{
 			opStack.push_back(Operation(OperationType::LIST_ADD, 0));
@@ -76,7 +76,7 @@ void Parser::Run()
 		else if ( it->type == TokenType::LIST_GET_VALUE )
 		{
 			opStack.push_back(Operation(OperationType::LIST_GET_VALUE, 0));
-		} 
+		} // Hash map start
 		else if ( it->type == TokenType::HASHMAP_ADD )
 		{
 			opStack.push_back(Operation(OperationType::HASHMAP_ADD, 0));
@@ -84,7 +84,7 @@ void Parser::Run()
 		else if ( it->type == TokenType::HASHMAP_GET )
 		{
 			opStack.push_back(Operation(OperationType::HASHMAP_GET, 0));
-		}
+		} // Hash set start
 		else if ( it->type == TokenType::HASHSET_ADD )
 		{
 			opStack.push_back(Operation(OperationType::HASHSET_ADD, 0));
@@ -96,6 +96,10 @@ void Parser::Run()
 		else if ( it->type == TokenType::HASHSET_TO_START )
 		{
 			opStack.push_back(Operation(OperationType::HASHSET_TO_START, 0));
+		}
+		else if ( it->type == TokenType::HASHSET_GET_VALUE )
+		{
+			opStack.push_back(Operation(OperationType::HASHSET_GET_VALUE, 0));
 		}
 		else
 		{
