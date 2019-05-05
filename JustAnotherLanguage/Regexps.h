@@ -25,7 +25,7 @@ const std::regex REGEX_GET_HASHMAP  ( "hash_map_get" );
 const std::regex REGEX_ADD_HASHSET       ( "hash_set_add" );
 const std::regex REGEX_NEXT_HASHSET      ( "hash_set_next" );
 const std::regex REGEX_TO_START_HASHSET  ( "hash_set_to_start" );
-const std::regex REGEX_GET_VALUE_HASHSET ( "hash_set_get_values" );
+const std::regex REGEX_GET_VALUE_HASHSET ( "hash_set_get_value" );
 
 const char REGEX_OP_COMMA = ',';
 const char REGEX_OP_COLON = ':';

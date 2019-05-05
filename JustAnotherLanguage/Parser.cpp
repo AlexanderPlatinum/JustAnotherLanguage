@@ -85,6 +85,18 @@ void Parser::Run()
 		{
 			opStack.push_back(Operation(OperationType::HASHMAP_GET, 0));
 		}
+		else if ( it->type == TokenType::HASHSET_ADD )
+		{
+			opStack.push_back(Operation(OperationType::HASHSET_ADD, 0));
+		}
+		else if ( it->type == TokenType::HASHSET_NEXT )
+		{
+			opStack.push_back(Operation(OperationType::HASHSET_NEXT, 0));
+		}
+		else if ( it->type == TokenType::HASHSET_TO_START )
+		{
+			opStack.push_back(Operation(OperationType::HASHSET_TO_START, 0));
+		}
 		else
 		{
 			OperationType currentOpType = getOperationType(*it);

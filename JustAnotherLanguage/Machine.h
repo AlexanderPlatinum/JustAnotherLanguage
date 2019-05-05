@@ -7,7 +7,9 @@
 #include <functional>
 
 #include "List.h"
+#include "HashSet.h"
 #include "HashMap.h"
+
 #include "Operation.h"
 
 class RuntimeError : public std::exception
@@ -36,6 +38,7 @@ private:
 	std::vector<Word> lastVaribleId;
 
 	List    <Word>       myList;
+	HashSet <Word>       myHashSet;
 	HashMap <Word, Word> myHashMap;
 
 public:
@@ -61,11 +64,19 @@ public:
 	void SetLastVaribleId( Word id );
 	Word GetLastVaribleId();
 
+	// List
 	void AddToList( Word value );
 	Word GetValueFromList();
 	bool NextList();
 	void ToStartList();
 
+	// Hash Map
 	void AddToHashMap( Word index, Word value );
 	Word GetFromHashMap( Word index );
+
+	// Hash Set
+	void AddToHashSet( Word value );
+	Word GetValueFromHashSet();
+	bool NextHashSet();
+	void ToStartHashSet();
 };

@@ -212,6 +212,52 @@ Machine::Machine()
 		}
 	);
 
+	this->AddOperation( OperationType::HASHSET_ADD,
+		[this] ( Operation &op ) -> void 
+		{
+			Word data = this->PopStack();
+
+			this->AddToHashSet( data );
+		}
+	);
+
+	this->AddOperation( OperationType::HASHSET_TO_START,
+		[this] ( Operation &op ) -> void 
+		{
+			this->ToStartHashSet();
+		}
+	);
+
+	this->AddOperation( OperationType::HASHSET_NEXT,
+		[this] ( Operation &op ) -> void 
+		{
+			this->NextHashSet();
+		}
+	);
+
+	this->AddOperation( OperationType::HASHSET_GET_VALUE,
+		[this] ( Operation &op ) -> void 
+		{
+			try
+			{
+				Word data = this->GetValueFromHashSet();
+				this->PushStack( data );
+			}
+			catch( ListNullreferenceException &e )
+			{
+				std::cout << e.what() << std::endl;
+
+				throw RuntimeError();
+			}
+			catch( ListNotInitializedException &e )
+			{
+				std::cout << e.what() << std::endl;
+
+				throw RuntimeError();
+			}
+		}
+	);
+
 	this->AddOperation( OperationType::VARIABLE,
 		[ this ] ( Operation &op ) -> void
 		{
@@ -341,4 +387,24 @@ void Machine::AddToHashMap( Word index, Word value )
 Machine::Word Machine::GetFromHashMap( Word index )
 {
 	return myHashMap.Get( index );
+}
+
+void Machine::AddToHashSet( Word value )
+{
+	myHashSet.Add( value );
+}
+
+Machine::Word Machine::GetValueFromHashSet()
+{
+	return myHashSet.GetItem();
+}
+
+bool Machine::NextHashSet()
+{
+	return myHashSet.Next();
+}
+
+void Machine::ToStartHashSet()
+{
+	myHashSet.ToStart();
 }

@@ -1,0 +1,5 @@
+hash_set_add( 1 );
+
+hash_set_next();
+a := hash_set_get_value();
+print( a );

@@ -25,6 +25,10 @@ enum class OperationType
 	LIST_GET_VALUE, // +
 	HASHMAP_ADD,    // +
 	HASHMAP_GET,    // +
+	HASHSET_ADD,
+	HASHSET_NEXT,
+	HASHSET_TO_START,
+	HASHSET_GET_VALUE,
 	NOT_FOUND       // +
 };
 
