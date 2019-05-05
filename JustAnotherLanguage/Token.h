@@ -36,10 +36,10 @@ enum class TokenType
 	LIST_GET_VALUE,    // +
 	HASHMAP_ADD,       // +
 	HASHMAP_GET,       // +
-	HASHSET_ADD,       // -
-	HASHSET_NEXT,      // -
-	HASHSET_TO_START,  // -
-	HASHSET_GET_VALUE, // -
+	HASHSET_ADD,       // +
+	HASHSET_NEXT,      // +
+	HASHSET_TO_START,  // +
+	HASHSET_GET_VALUE, // +
 	NO_MATCH,
 	ALSO_NEED
 };

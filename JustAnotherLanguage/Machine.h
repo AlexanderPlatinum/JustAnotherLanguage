@@ -25,8 +25,8 @@ class Machine
 {
 private:
 
-	using Stack = std::vector<unsigned int>;
 	using Word = unsigned int;
+	using Stack = std::vector <Word>;
 
 	Word pc;
 	Programm program;
