@@ -130,15 +130,15 @@ TokenType Lexer::getTokenType( const std::string &str ) const
 			count++;
 			type = TokenType::LIST_GET_VALUE;
 		}
-		else if (std::regex_match(str, REGEX_ADD_HASHSET))
+		else if (std::regex_match(str, REGEX_ADD_HASHMAP))
 		{
 			count++;
-			type = TokenType::HASHSET_ADD;
+			type = TokenType::HASHMAP_ADD;
 		}
-		else if (std::regex_match(str, REGEX_GET_HASHSET))
+		else if (std::regex_match(str, REGEX_GET_HASHMAP))
 		{
 			count++;
-			type = TokenType::HASHSET_GET;
+			type = TokenType::HASHMAP_GET;
 		}
 		else if (std::regex_match(str, REGEX_WHILE))
 		{

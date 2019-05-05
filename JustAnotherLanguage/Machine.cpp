@@ -182,27 +182,27 @@ Machine::Machine()
 		}
 	);
 
-	this->AddOperation( OperationType::HASHSET_ADD,
+	this->AddOperation( OperationType::HASHMAP_ADD,
 		[this] ( Operation &op ) -> void 
 		{
 			Word value = this->PopStack();
 			Word index = this->PopStack();
 
-			this->AddToHashSet( index, value );
+			this->AddToHashMap( index, value );
 		}
 	);
 
-	this->AddOperation( OperationType::HASHSET_GET,
+	this->AddOperation( OperationType::HASHMAP_GET,
 		[this] ( Operation &op ) -> void 
 		{
 			Word index = this->PopStack();
 
 			try
 			{
-				Word value = this->GetFromHashSet( index );
+				Word value = this->GetFromHashMap( index );
 				this->PushStack( value );
 			}
-			catch ( NotFoundHashSetException &e )
+			catch ( NotFoundHashMapException &e )
 			{
 				std::cout << e.what() << std::endl;
 
@@ -333,12 +333,12 @@ void Machine::ToStartList()
 	myList.ToStart();
 }
 
-void Machine::AddToHashSet( Word index, Word value )
+void Machine::AddToHashMap( Word index, Word value )
 {
-	myHashSet.Add( index, value );
+	myHashMap.Add( index, value );
 }
 
-Machine::Word Machine::GetFromHashSet( Word index )
+Machine::Word Machine::GetFromHashMap( Word index )
 {
-	return myHashSet.Get( index );
+	return myHashMap.Get( index );
 }

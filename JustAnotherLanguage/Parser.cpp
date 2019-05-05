@@ -77,13 +77,13 @@ void Parser::Run()
 		{
 			opStack.push_back(Operation(OperationType::LIST_GET_VALUE, 0));
 		} 
-		else if ( it->type == TokenType::HASHSET_ADD )
+		else if ( it->type == TokenType::HASHMAP_ADD )
 		{
-			opStack.push_back(Operation(OperationType::HASHSET_ADD, 0));
+			opStack.push_back(Operation(OperationType::HASHMAP_ADD, 0));
 		}
-		else if ( it->type == TokenType::HASHSET_GET )
+		else if ( it->type == TokenType::HASHMAP_GET )
 		{
-			opStack.push_back(Operation(OperationType::HASHSET_GET, 0));
+			opStack.push_back(Operation(OperationType::HASHMAP_GET, 0));
 		}
 		else
 		{
@@ -273,8 +273,8 @@ char Parser::printType(const Operation &op) const
 	if (op.type == OperationType::LIST_GET_VALUE) return 'V';
 	if (op.type == OperationType::LIST_NEXT)      return 'N';
 	if (op.type == OperationType::LIST_TO_START)  return 'S';
-	if (op.type == OperationType::HASHSET_ADD)    return 'H';
-	if (op.type == OperationType::HASHSET_GET)    return 'h';
+	if (op.type == OperationType::HASHMAP_ADD)    return 'M';
+	if (op.type == OperationType::HASHMAP_GET)    return 'm';
 
 	return ' ';
 }
@@ -317,8 +317,8 @@ int Parser::getPriority(const Operation &op) const
 		 op.type == OperationType::LIST_TO_START  ||
 		 op.type == OperationType::LIST_NEXT      ||
 		 op.type == OperationType::LIST_GET_VALUE ||
-		 op.type == OperationType::HASHSET_ADD    ||
-		 op.type == OperationType::HASHSET_GET      )
+		 op.type == OperationType::HASHMAP_ADD    ||
+		 op.type == OperationType::HASHMAP_GET      )
 	{
 		return 1;
 	}
@@ -359,8 +359,8 @@ std::string Parser::getNameOfOperand(const Operation &op) const
 	if (op.type == OperationType::LIST_GET_VALUE) return "list_get_value";
 	if (op.type == OperationType::LIST_NEXT)      return "list_next";
 	if (op.type == OperationType::LIST_TO_START)  return "list_to_start";
-	if (op.type == OperationType::HASHSET_ADD)    return "hash_set_add";
-	if (op.type == OperationType::HASHSET_GET)    return "hash_set_get";
+	if (op.type == OperationType::HASHMAP_ADD)    return "hash_map_add";
+	if (op.type == OperationType::HASHMAP_GET)    return "hash_map_get";
 
 	return "nop";
 }

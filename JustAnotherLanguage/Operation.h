@@ -23,8 +23,8 @@ enum class OperationType
 	LIST_NEXT,      // + 
 	LIST_TO_START,  // +
 	LIST_GET_VALUE, // +
-	HASHSET_ADD,    // +
-	HASHSET_GET,    // +
+	HASHMAP_ADD,    // +
+	HASHMAP_GET,    // +
 	NOT_FOUND       // +
 };
 

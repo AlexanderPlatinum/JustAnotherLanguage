@@ -34,8 +34,8 @@ enum class TokenType
 	LIST_NEXT,        // +
 	LIST_TO_START,    // +
 	LIST_GET_VALUE,   // +
-	HASHSET_ADD,      // +
-	HASHSET_GET,      // +
+	HASHMAP_ADD,      // +
+	HASHMAP_GET,      // +
 	NO_MATCH,
 	ALSO_NEED
 };

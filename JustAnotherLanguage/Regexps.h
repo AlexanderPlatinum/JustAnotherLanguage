@@ -17,8 +17,8 @@ const std::regex REGEX_ADD         ( "list_add" );
 const std::regex REGEX_NEXT        ( "list_next" );
 const std::regex REGEX_TO_START    ( "list_to_start" );
 const std::regex REGEX_GET_VALUE   ( "list_get_value" );
-const std::regex REGEX_ADD_HASHSET ( "hash_set_add" );
-const std::regex REGEX_GET_HASHSET ( "hash_set_get" );
+const std::regex REGEX_ADD_HASHMAP ( "hash_map_add" );
+const std::regex REGEX_GET_HASHMAP ( "hash_map_get" );
 
 const char REGEX_OP_COMMA = ',';
 const char REGEX_OP_COLON = ':';

@@ -5,8 +5,6 @@
 #include "Parser.h"
 #include "Machine.h"
 
-#include "HashSet.h"
-
 std::string getFileContent( const std::string &fileName )
 {
 	std::ifstream file( fileName );

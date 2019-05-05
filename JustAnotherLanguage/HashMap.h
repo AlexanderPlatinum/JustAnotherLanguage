@@ -4,47 +4,47 @@
 
 #include <exception>
 
-class NotFoundHashSetException : public std::exception
+class NotFoundHashMapException : public std::exception
 {
 public:
     virtual const char* what() const noexcept
     {
-        return "Element not found in hash set";
+        return "Element not found in hash map";
     }
 };
 
 template < typename TypeIndex, typename TypeValue >
-class HashSet
+class HashMap
 {
 private:
-    struct HashSetItem
+    struct HashMapItem
     {
         TypeIndex index;
         TypeValue value;
 
-        HashSetItem() = default;
+        HashMapItem() = default;
 
-        HashSetItem( TypeIndex _index, TypeValue _value ) 
+        HashMapItem( TypeIndex _index, TypeValue _value ) 
             : index( _index ), value( _value )
         {}
 
-        HashSetItem( const HashSetItem &item ) 
+        HashMapItem( const HashMapItem &item ) 
             : index( item.index ), value( item.value )
         {}
     };
 
 private:
     static const int COUNT_OF_HASH_SET = 16;
-    List<HashSetItem> lists[COUNT_OF_HASH_SET];
+    List<HashMapItem> lists[COUNT_OF_HASH_SET];
 
 public:
-    HashSet() = default;
-    ~HashSet() = default;
+    HashMap() = default;
+    ~HashMap() = default;
 
     void Add( TypeIndex index, TypeValue value )
     {
         int localIndex = calculateLocalIndex( index );
-        lists[localIndex].Add( HashSetItem( index, value ) );
+        lists[localIndex].Add( HashMapItem( index, value ) );
     }
 
     TypeValue Get( TypeIndex index )
@@ -56,7 +56,7 @@ public:
         {
             while ( lists[localIndex].Next() )
             {
-                HashSetItem item = lists[localIndex].GetValue();
+                HashMapItem item = lists[localIndex].GetValue();
 
                 if ( item.index == index )
                 {
@@ -68,16 +68,16 @@ public:
         {
             std::cout << e.what() << std::endl;
 
-            throw NotFoundHashSetException();
+            throw NotFoundHashMapException();
         }
         catch( ListNotInitializedException &e )
         {
             std::cout << e.what() << std::endl;
 
-            throw NotFoundHashSetException();
+            throw NotFoundHashMapException();
         }
 
-        throw NotFoundHashSetException();
+        throw NotFoundHashMapException();
     }
 
     void Clear ()
