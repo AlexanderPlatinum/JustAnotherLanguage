@@ -111,6 +111,23 @@ public:
         return true;
     }
 
+    bool IsContaint( Type value )
+    {
+        ListItem *current = root;
+        
+        while ( current != nullptr )
+        {
+            if ( current->value == value )
+            {
+                return true;
+            }
+
+            current = current->next;
+        }
+
+        return false;
+    }
+
     Type GetValue ()
     {
         if ( isStarted == false )

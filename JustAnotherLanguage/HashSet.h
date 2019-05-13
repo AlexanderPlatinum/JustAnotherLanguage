@@ -2,23 +2,58 @@
 
 #include "List.h"
 
+#include <map>
+
 template < typename Type >
 class HashSet
 {
 private:
-    static const int MAX_COUNT_HASH_SET = 16;
-    List <Type> lists[MAX_COUNT_HASH_SET];
+    std::vector<List <Type>> lists;
 
     int currentList = 0;
-
+    int size_of_trash = 16;
+    int local_count = 0;
 public:
-    HashSet() = default;
+    HashSet()
+    {
+        Resize();
+    }
+
     ~HashSet() = default;
+
+    void Resize ()
+    {
+        lists.reserve( size_of_trash );
+
+        std::vector<List <Type>> temp = lists;
+        lists.clear();
+
+        for ( int i = 0; i < size_of_trash; i++ )
+        {
+            while( temp[i].Next() )
+            {
+                Type tmp_var = temp[i].GetValue();
+
+                Add( tmp_var );
+            }
+        }
+    }
 
     void Add( Type value )
     {
         int index = GetListIndexByHash( value );
-        lists[index].Add( value );
+
+        if ( local_count == size_of_trash )
+        {
+            size_of_trash += 16;
+            Resize();
+        }
+
+        if ( !IsContaint( value ) )
+        {
+            lists[index].Add( value );
+            local_count++;
+        }
     }
 
     bool Next()
@@ -30,7 +65,7 @@ public:
             currentList++;
             lists[currentList].ToStart();
 
-            if ( currentList >= MAX_COUNT_HASH_SET )
+            if ( currentList >= size_of_trash )
             {
                 return false;
             }
@@ -48,7 +83,7 @@ public:
 
     void ToStart()
     {
-        for ( int i = 0; i < MAX_COUNT_HASH_SET; i++ )
+        for ( int i = 0; i < size_of_trash; i++ )
         {
             lists[i].ToStart();
         }
@@ -56,15 +91,21 @@ public:
 
     void Clear()
     {
-        for ( int i = 0; i < MAX_COUNT_HASH_SET; i++ )
+        for ( int i = 0; i < size_of_trash; i++ )
         {
             lists[i].Clear();
         }
     }
 
+    bool IsContaint( Type value )
+    {
+        int index = GetListIndexByHash( value );
+        return lists[index].IsContaint( value );
+    }
+
 private:
     int GetListIndexByHash( Type value )
     {
-        return value & 15;
+        return value & ( size_of_trash - 1 );
     }
 };
